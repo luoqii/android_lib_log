@@ -5,7 +5,20 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true">
+        <activity android:name="org.bbs.android.log.Logcat_FragmentActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="org.bbs.android.log.Logcat_AppCompatActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

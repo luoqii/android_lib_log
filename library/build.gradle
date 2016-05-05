@@ -1,8 +1,11 @@
 apply plugin: 'com.android.library'
 
+// for bintray
+apply plugin: 'com.github.dcendents.android-maven'
+
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         minSdkVersion 10
@@ -21,5 +24,99 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+
+    provided 'com.android.support:support-v4:23.3.0'
     compile 'com.android.support:appcompat-v7:23.3.0'
 }
+
+// below are all for bintray
+apply plugin: 'com.jfrog.bintray'
+
+def GROUP = 'org.bbs.android'
+// sync with Readme.md
+def VERSION = '0.2'
+
+group = GROUP
+version = VERSION
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'android-lib-log'
+            description 'log utitility for andorid'
+            url 'https://github.com/luoqii/android_lib_log'
+            //inceptionYear '2015'
+
+            packaging 'aar'
+            groupId GROUP
+
+            // must math lib module's name. shitt!!!
+            artifactId 'log'
+            version VERSION
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+            scm {
+                connection 'https://github.com/luoqii/android_lib_log.git'
+                url 'https://github.com/luoqii/android_lib_log'
+
+            }
+            developers {
+                developer {
+                    name 'bb.s'
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'android-log'
+        userOrg = user
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/luoqii/android_lib_log.git'
+        version {
+            name = VERSION
+            desc = 'init version'
+            vcsTag = '0.1'
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+        }
+    }
+}
+
+//task wrapper(type: Wrapper) {
+//  gradleVersion = '2.4'
+//}

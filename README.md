@@ -11,6 +11,6 @@ used in Gradle:
     jcenter()
   }
     
-compile 'org.bbs.android:log:0.1'
+compile 'org.bbs.android:log:0.2'
 ```
-[99998]:htt://nonexist.com/ "sync lib version with jcenter.gradle"
+[99998]:htt://nonexist.com/ "sync lib version with build.gradle"

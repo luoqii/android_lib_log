@@ -1,1 +1,2 @@
 include ':app', ':library'
+project(':library').name = "log"

@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "org.bbs.android.log.sample"
@@ -23,6 +23,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:support-v4:23.3.0'
 
-    compile project(':library')
+//    compile project(':log')
+    compile 'org.bbs.android:log:0.2'
 }

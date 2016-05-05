@@ -3,7 +3,7 @@ package org.bbs.android.log.androidliblog;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.bbs.android.log.Log;
+import org.bbs.android.log.Logcat_AppCompatActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -92,6 +93,10 @@ public class MainActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if (id == R.id.action_logcat){
+//            Logcat_FragmentActivity.start(this);
+            Logcat_AppCompatActivity.start(this);
         }
 
         return super.onOptionsItemSelected(item);
