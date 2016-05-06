@@ -8,6 +8,6 @@ used in Gradle:
     jcenter()
   }
     
-compile 'org.bbs.android.lib:library:0.0.3'
+compile 'org.bbs.android:log:0.1'
 ```
 [99998]:htt://nonexist.com/ "sync lib version with jcenter.gradle"
