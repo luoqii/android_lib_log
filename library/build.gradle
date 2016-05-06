@@ -8,7 +8,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 10
+        minSdkVersion 7
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -34,7 +34,7 @@ apply plugin: 'com.jfrog.bintray'
 
 def GROUP = 'org.bbs.android'
 // sync with Readme.md
-def VERSION = '0.2'
+def VERSION = '0.4'
 
 group = GROUP
 version = VERSION
@@ -101,6 +101,7 @@ bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
 
+    publish = true
     configurations = ['archives']
     pkg {
         repo = 'maven'
