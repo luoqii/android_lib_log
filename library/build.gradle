@@ -26,7 +26,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     provided 'com.android.support:support-v4:23.3.0'
-    compile 'com.android.support:appcompat-v7:23.3.0'
+    provided 'com.android.support:appcompat-v7:23.3.0'
 }
 
 // below are all for bintray
@@ -34,7 +34,7 @@ apply plugin: 'com.jfrog.bintray'
 
 def GROUP = 'org.bbs.android'
 // sync with Readme.md
-def VERSION = '0.4'
+def VERSION = '0.5'
 
 group = GROUP
 version = VERSION
