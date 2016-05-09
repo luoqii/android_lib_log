@@ -2,13 +2,17 @@ package org.bbs.android.log.androidliblog;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
+import android.widget.EditText;
 
 import org.bbs.android.log.Log;
 import org.bbs.android.log.Logcat_AppCompatActivity;
@@ -105,7 +109,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends Fragment implements View.OnClickListener {
+
+        private EditText mMethod;
+        private EditText mMessage;
 
         public PlaceholderFragment() {
         }
@@ -117,6 +124,41 @@ public class MainActivity extends AppCompatActivity {
 
             Log.i(TAG, "onCreateView. view:" + rootView);
             return rootView;
+        }
+
+        @Override
+        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+
+            view.findViewById(R.id.log).setOnClickListener(this);
+            mMessage = (EditText)view.findViewById(R.id.message);
+            mMethod = (EditText)view.findViewById(R.id.method);
+        }
+
+        @Override
+        public void onClick(View v) {
+            String method = mMethod.getText().toString().toLowerCase();
+            log(method, mMessage.getText().toString());
+        }
+
+        private void log(String method, String message) {
+            if ("d".equals(method)){
+                Log.d(TAG, message);
+            } else
+            if ("e".equals(method)){
+                Log.e(TAG, message);
+            } else
+            if ("w".equals(method)){
+                Log.w(TAG, message);
+            } else
+            if ("i".equals(method)){
+                Log.i(TAG, message);
+            } else
+            if ("v".equals(method)){
+                Log.v(TAG, message);
+            } else {
+                Log.w(TAG, "no method.");
+            }
         }
     }
 }

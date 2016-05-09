@@ -31,4 +31,7 @@ task clean(type: Delete) {
 ext {
     compileSdkVersion = 23
     buildToolsVersion = '23.0.3'
+
+    runnerVersion = "0.5"
+    rulesVersion = "0.5"
 }

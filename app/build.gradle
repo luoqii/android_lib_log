@@ -10,6 +10,8 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -27,4 +29,11 @@ dependencies {
 
 //    compile project(':log')
     compile 'org.bbs.android:log:0.2'
+
+    androidTestCompile 'junit:junit:4.12'
+
+    // Android Testing Support Library's runner and rules
+    androidTestCompile 'com.android.support.test:runner:' + rootProject.ext.runnerVersion
+    androidTestCompile 'com.android.support.test:rules:' + rootProject.ext.rulesVersion
+    androidTestCompile 'com.android.support:support-annotations:23.3.0'
 }
