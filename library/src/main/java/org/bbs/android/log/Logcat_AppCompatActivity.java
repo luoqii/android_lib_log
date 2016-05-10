@@ -61,7 +61,7 @@ public class Logcat_AppCompatActivity extends AppCompatActivity
             Log.w(TAG, "no filter in intent, ignore.");
         }
         
-        LogcatFragment.FilterSpec spec = (LogcatFragment.FilterSpec) p;
+        LogcatProcess.FilterSpec spec = (LogcatProcess.FilterSpec) p;
         
         Bundle args = new Bundle();
         args.putString(LogcatFragment.EXTRA_LOG_SAVE_DIR, mLogSaveDir);
