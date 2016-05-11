@@ -5,6 +5,8 @@
 a log wrapper for android.util.Log and support log to java.util.logger,
 with this, you can log to file (by FileHandler), server (by SocketHandler).
 
+[online demo](https://appetize.io/app/kr7mvhad1ejcj3yu1cehvf15d4)
+
 used in Gradle:
 ```groovy
  repositories {
