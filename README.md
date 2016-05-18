@@ -2,8 +2,10 @@
 
 [ ![Download](https://api.bintray.com/packages/luoqii/maven/android-log/images/download.svg) ](https://bintray.com/luoqii/maven/android-log/_latestVersion)
 
-Log wrapper for android;
-LogcatFragment for show app's log;
+a log wrapper for android.util.Log and support log to java.util.logger,
+with this, you can log to file (by FileHandler), server (by SocketHandler).
+
+[online demo](https://appetize.io/app/kr7mvhad1ejcj3yu1cehvf15d4)
 
 used in Gradle:
 ```groovy
