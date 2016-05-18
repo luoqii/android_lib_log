@@ -20,7 +20,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url "http://dl.bintray.com/luoqii/maven" }
+//        maven { url "http://dl.bintray.com/luoqii/maven" }
     }
 }
 

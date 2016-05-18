@@ -28,7 +28,7 @@ dependencies {
     compile 'com.android.support:support-v4:23.3.0'
 
 //    compile project(':log')
-    compile 'org.bbs.android:log:0.2'
+    compile 'org.bbs.android:log:0.5_beta'
 
     androidTestCompile 'junit:junit:4.12'
 
