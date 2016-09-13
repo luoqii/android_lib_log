@@ -26,4 +26,4 @@ dependencies {
     provided 'com.android.support:appcompat-v7:23.3.0'
 }
 
-apply from: 'bintray.gradle'
+//apply from: 'bintray.gradle'

@@ -17,7 +17,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 /**
- * just a wrapper of android.util.Log with identical name for easy code replacing.
+ * just a wrapper of android.util.Log with identical method for easy code replacing.
  *
  * if set a {@link Logger} by {@link #setLogger(Logger)}, all log will publish to
  * it with a {@link Record}.
