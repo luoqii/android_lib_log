@@ -1,20 +1,12 @@
 package org.bbs.android.log;
 
 
-import android.app.Application;
-import android.os.Environment;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.net.UnknownHostException;
 import java.util.Date;
-import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
+
 
 /**
  * just a wrapper of android.util.Log with identical method for easy code replacing.
@@ -22,10 +14,13 @@ import java.util.logging.Logger;
  * if set a {@link Logger} by {@link #setLogger(Logger)}, all log will publish to
  * it with a {@link Record}.
  *
+ * VERBOSE < DEBUG < INFO < WARN < ERROR < ASSERT
+ *
  * @see #setLogger(Logger)
  * @see SimpleFormatter
  */
 public final class Log {
+    private static final String TAG = Log.class.getSimpleName();
 
     /**
      * Priority constant for the println method; use Log.v.
@@ -57,6 +52,9 @@ public final class Log {
      */
     public static final int ASSERT = android.util.Log.ASSERT;
 
+    private static boolean sEnable = true;
+    private static int sLevel = VERBOSE;
+
 //    /**
 //     * Exception class used to capture a stack trace in {@link #wtf}.
 //     */
@@ -80,6 +78,67 @@ public final class Log {
 //    };
 
     private Log() {
+    }
+
+    public static void enableLog(boolean enable){
+        sEnable = enable;
+
+        android.util.Log.d(TAG, (enable ? "enable" : "diable" + " log: "));
+    }
+
+    public static String toLevelStr(int level){
+        switch (level){
+            case VERBOSE:
+                return "VERBOSE";
+            case DEBUG:
+                return "DEBUG";
+            case INFO:
+                return "INFO";
+            case WARN:
+                return "WARN";
+            case ERROR:
+                return "ERROR";
+            case ASSERT:
+                return "ASSERT";
+        }
+
+        return "unknow level: " + level;
+    }
+
+    public static String toLevelShortStr(int level){
+        switch (level){
+            case VERBOSE:
+                return "V";
+            case DEBUG:
+                return "D";
+            case INFO:
+                return "I";
+            case WARN:
+                return "W";
+            case ERROR:
+                return "E";
+            case ASSERT:
+                return "A";
+        }
+
+        return "?";
+    }
+
+    /**
+     *
+     * @param level
+     * one of
+     * {@link #VERBOSE}
+     * {@link #WARN}
+     * {@link #ASSERT}
+     * {@link #DEBUG}
+     * {@link #ERROR}
+     * {@link #INFO}
+     */
+    public static void setLevel(int level){
+        sLevel = level;
+
+        android.util.Log.d(TAG, "setLevel: " + toLevelStr(level));
     }
 
     /**
@@ -340,18 +399,32 @@ public final class Log {
 
     /** @hide */ public static int println_native(int bufID,
                                                          int priority, String tag, String msg){
-        android.util.Log.println(priority, tag, msg);
-        log2Logger(priority, tag, msg);
+        if (canLog2AndroidLog(priority)) {
+            android.util.Log.println(priority, tag, msg);
+        }
+        if (canLog2Logger(priority)){
+            log2Logger(priority, tag, msg);
+        }
         return 0;
+    }
+
+    private static boolean canLog2Logger(int priority) {
+        return sEnable && priority >= sLevel;
+    }
+
+    private static boolean canLog2AndroidLog(int priority) {
+        return sEnable && priority >= sLevel;
     }
 
     private static void log2Logger(int priority, String tag, String msg) {
         if (null != sLogger){
-            sLogger.log(new Record(toLevel(priority), tag, msg));
+            sLogger.log(new Record(toLoggerLevel(priority),
+                                    tag,
+                                    "[" + toLevelShortStr(priority) + "]" + msg));
         }
     }
 
-    private static Level toLevel(int priority) {
+    private static Level toLoggerLevel(int priority) {
         Level level = Level.ALL;
         switch (priority){
             case VERBOSE:

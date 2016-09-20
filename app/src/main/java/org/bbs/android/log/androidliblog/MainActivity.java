@@ -56,6 +56,34 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Log.i(TAG, "onCreate.");
+
+        Log.setLevel(Log.VERBOSE);
+        log();
+        Log.setLevel(Log.DEBUG);
+        log();
+        Log.setLevel(Log.INFO);
+        log();
+        Log.setLevel(Log.WARN);
+        log();
+        Log.setLevel(Log.ERROR);
+        log();
+        Log.setLevel(Log.ASSERT);
+        log();
+
+
+        Log.enableLog(false);
+        log();
+        Log.enableLog(true);
+        Log.setLevel(Log.VERBOSE);
+        log();
+    }
+
+    void log(){
+        Log.v(TAG, "Log.v");
+        Log.d(TAG, "Log.d");
+        Log.i(TAG, "Log.i");
+        Log.w(TAG, "Log.w");
+        Log.e(TAG, "Log.e");
     }
 
 
@@ -157,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             if ("v".equals(method)){
                 Log.v(TAG, message);
             } else {
-                Log.w(TAG, "no method.");
+                Log.w(TAG, "no method. available: [dewiv]");
             }
         }
     }

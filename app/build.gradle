@@ -30,7 +30,7 @@ dependencies {
     //keep this comment-out in commit code.
 //    compile project(':log')
     // sync with Readme.md
-    compile 'org.bbs.android:log:0.6_rc2'
+    compile 'org.bbs.android:log:0.6_rc3'
 
     androidTestCompile 'junit:junit:4.12'
 
