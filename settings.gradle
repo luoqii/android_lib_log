@@ -1,2 +1,3 @@
 include ':app', ':library'
 project(':library').name = "log"
+project(':app').name = "sample"

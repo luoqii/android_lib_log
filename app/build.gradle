@@ -27,8 +27,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
 
+    //keep this comment-out in commit code.
 //    compile project(':log')
-    compile 'org.bbs.android:log:0.5_beta'
+    // sync with Readme.md
+    compile 'org.bbs.android:log:0.6_rc2'
 
     androidTestCompile 'junit:junit:4.12'
 
