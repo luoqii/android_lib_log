@@ -70,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
     private void initLogger() {
         try {
             Logger l = Logger.getAnonymousLogger();
-            File f = new File(Environment.getExternalStorageDirectory(),
-                    getApplication().getPackageName() + "/log");
-            boolean mk = f.mkdirs();
-            Log.d(TAG, "mk:" + mk);
-            Log.d(TAG, "isExternalStorageWritable:" + isExternalStorageWritable());
-            Log.d(TAG, "isExternalStorageReadable:" + isExternalStorageReadable());
+//            File f = new File(Environment.getExternalStorageDirectory(),
+//                    getApplication().getPackageName() + "/log");
+//            boolean mk = f.mkdirs();
+//            Log.d(TAG, "mk:" + mk);
+//            Log.d(TAG, "isExternalStorageWritable:" + isExternalStorageWritable());
+//            Log.d(TAG, "isExternalStorageReadable:" + isExternalStorageReadable());
             FileHandler h = new FileHandler(new File(getExternalFilesDir(null), "log%g").getPath() + ".txt", 1 * 1024 * 1024, 5);
             h.setFormatter(new Log.SimpleFormatter());
             l.addHandler(h);

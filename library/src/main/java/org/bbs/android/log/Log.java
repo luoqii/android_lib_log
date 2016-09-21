@@ -9,15 +9,16 @@ import java.util.logging.Logger;
 
 
 /**
- * just a wrapper of android.util.Log with identical method for easy code replacing.
- *
- * if set a {@link Logger} by {@link #setLogger(Logger)}, all log will publish to
+ * just a wrapper of android.util.Log with identical methods for easy code replacing.
+ * <p>
+ * if set a {@link Logger} by {@link #setLogger(Logger)}, additionally all log will publish to
  * it with a {@link Record}.
- *
+ * <p>
  * VERBOSE < DEBUG < INFO < WARN < ERROR < ASSERT
  *
  * @see #setLogger(Logger)
- * @see SimpleFormatter
+ * @see #enableLog(boolean)
+ * @see #setLevel(int)
  */
 public final class Log {
     private static final String TAG = Log.class.getSimpleName();
