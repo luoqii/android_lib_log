@@ -38,25 +38,14 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
-        try {
-            Logger l = Logger.getAnonymousLogger();
-            File f = new File(Environment.getExternalStorageDirectory(),
-                    getApplication().getPackageName() + "/log");
-            boolean mk = f.mkdirs();
-            Log.d(TAG, "mk:" + mk);
-            Log.d(TAG, "isExternalStorageWritable:" + isExternalStorageWritable());
-            Log.d(TAG, "isExternalStorageReadable:" + isExternalStorageReadable());
-            FileHandler h = new FileHandler(new File(getExternalFilesDir(null), "log%g").getPath() + ".txt", 1 * 1024 * 1024, 5);
-            h.setFormatter(new Log.SimpleFormatter());
-            l.addHandler(h);
-            l.setLevel(Level.ALL);
-            Log.setLogger(l);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        initLogger();
 
         Log.i(TAG, "onCreate.");
 
+        logIt();
+    }
+
+    private void logIt() {
         Log.setLevel(Log.VERBOSE);
         log();
         Log.setLevel(Log.DEBUG);
@@ -76,6 +65,25 @@ public class MainActivity extends AppCompatActivity {
         Log.enableLog(true);
         Log.setLevel(Log.VERBOSE);
         log();
+    }
+
+    private void initLogger() {
+        try {
+            Logger l = Logger.getAnonymousLogger();
+            File f = new File(Environment.getExternalStorageDirectory(),
+                    getApplication().getPackageName() + "/log");
+            boolean mk = f.mkdirs();
+            Log.d(TAG, "mk:" + mk);
+            Log.d(TAG, "isExternalStorageWritable:" + isExternalStorageWritable());
+            Log.d(TAG, "isExternalStorageReadable:" + isExternalStorageReadable());
+            FileHandler h = new FileHandler(new File(getExternalFilesDir(null), "log%g").getPath() + ".txt", 1 * 1024 * 1024, 5);
+            h.setFormatter(new Log.SimpleFormatter());
+            l.addHandler(h);
+            l.setLevel(Level.ALL);
+            Log.setLogger(l);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void log(){
