@@ -70,14 +70,21 @@ public class MainActivity extends AppCompatActivity {
     private void initLogger() {
         try {
             Logger l = Logger.getAnonymousLogger();
-//            File f = new File(Environment.getExternalStorageDirectory(),
-//                    getApplication().getPackageName() + "/log");
-//            boolean mk = f.mkdirs();
+            Log.d(TAG, "isExternalStorageWritable:" + isExternalStorageWritable());
+            Log.d(TAG, "isExternalStorageReadable:" + isExternalStorageReadable());
+
+            File sdcardLogDir = new File(Environment.getExternalStorageDirectory(),
+                    getApplication().getPackageName() + "/log");
+            sdcardLogDir = new File("/sdcard/log");
+            boolean mk = sdcardLogDir.mkdirs();
 //            Log.d(TAG, "mk:" + mk);
-//            Log.d(TAG, "isExternalStorageWritable:" + isExternalStorageWritable());
-//            Log.d(TAG, "isExternalStorageReadable:" + isExternalStorageReadable());
-            FileHandler h = new FileHandler(new File(getExternalFilesDir(null), "log%g").getPath() + ".txt", 1 * 1024 * 1024, 5);
-            h.setFormatter(new Log.SimpleFormatter());
+
+            File logDir = new File(getExternalFilesDir(null), "log%g");
+            logDir = new File(sdcardLogDir, "log%g");
+            Log.d(TAG, "logDir:" + logDir.getParent());
+            FileHandler h = new FileHandler(logDir.getPath() + ".txt",
+                    1 * 1024 * 1024,
+                    5);            h.setFormatter(new Log.SimpleFormatter());
             l.addHandler(h);
             l.setLevel(Level.ALL);
             Log.setLogger(l);

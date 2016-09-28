@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 /**
  * just a wrapper of android.util.Log with identical methods for easy code replacing.
  * <p>
- * if set a {@link Logger} by {@link #setLogger(Logger)}, additionally all log will publish to
+ * if set a {@link java.util.logging.Logger} by {@link #setLogger(Logger)}, additionally all log will publish to
  * it with a {@link Record}.
  * <p>
  * VERBOSE < DEBUG < INFO < WARN < ERROR < ASSERT
@@ -19,6 +19,7 @@ import java.util.logging.Logger;
  * @see #setLogger(Logger)
  * @see #enableLog(boolean)
  * @see #setLevel(int)
+ * @see java.util.logging.Logger
  */
 public final class Log {
     private static final String TAG = Log.class.getSimpleName();
@@ -84,7 +85,7 @@ public final class Log {
     public static void enableLog(boolean enable){
         sEnable = enable;
 
-        android.util.Log.d(TAG, (enable ? "enable" : "diable" + " log: "));
+        android.util.Log.d(TAG, (enable ? "enable" : "disable" + " log: "));
     }
 
     public static String toLevelStr(int level){
