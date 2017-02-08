@@ -13,6 +13,6 @@ used in Gradle:
     jcenter()
   }
     
-compile 'org.bbs.android:log:0.6_rc4'
+compile 'org.bbs.android:log:0.6_rc5'
 ```
 [99998]:htt://nonexist.com/ "sync lib version with build.gradle"

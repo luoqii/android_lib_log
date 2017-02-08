@@ -47,7 +47,7 @@ dependencies {
     //keep this comment-out in commit code.
 //    compile project(':log')
     // sync with Readme.md
-    compile 'org.bbs.android:log:0.6_rc3'
+    compile 'org.bbs.android:log:0.6_rc5'
 
     androidTestCompile 'junit:junit:4.12'
 
@@ -74,3 +74,10 @@ task t {
 //        variant.metaClass.properties.each {println it.name }
     }
 }
+
+//task dumpProperties {
+//    android.applicationVariants.all { variant ->
+//        println variant.zipAlign
+//        variant.metaClass.properties.sort().each {println it.name }
+//    }
+//}

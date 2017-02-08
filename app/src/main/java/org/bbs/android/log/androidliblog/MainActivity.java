@@ -16,6 +16,7 @@ import android.view.WindowInsets;
 import android.widget.EditText;
 
 import org.bbs.android.log.Log;
+import org.bbs.android.log.LogUtil;
 import org.bbs.android.log.Logcat_AppCompatActivity;
 
 import java.io.File;
@@ -69,34 +70,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initLogger() {
-        try {
-            if (BuildConfig.DEBUG) {
-                Logger l = Logger.getAnonymousLogger();
-                Log.d(TAG, "isExternalStorageWritable:" + isExternalStorageWritable());
-                Log.d(TAG, "isExternalStorageReadable:" + isExternalStorageReadable());
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "isExternalStorageWritable:" + isExternalStorageWritable());
+            Log.d(TAG, "isExternalStorageReadable:" + isExternalStorageReadable());
 
-                File sdcardLogDir = new File(Environment.getExternalStorageDirectory(),
-                        getApplication().getPackageName() + "/log");
-                sdcardLogDir = new File("/sdcard/log");
-                boolean mk = sdcardLogDir.mkdirs();
-//            Log.d(TAG, "mk:" + mk);
-
-                File logDir = new File(getExternalFilesDir(null), "log%g");
-                logDir = new File(sdcardLogDir, "log%g");
-                Log.d(TAG, "logDir:" + logDir.getParent());
-                FileHandler h = new FileHandler(logDir.getPath() + ".txt",
-                        1 * 1024 * 1024,
-                        5);
-                h.setFormatter(new Log.SimpleFormatter());
-                l.addHandler(h);
-                l.setLevel(Level.ALL);
-                Log.setLogger(l);
-            } else {
-                // for release show waring & errors
-                Log.setLevel(Log.WARN);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            LogUtil.init();
+        } else {
+            // for release show waring & errors
+            Log.setLevel(Log.WARN);
         }
     }
 
