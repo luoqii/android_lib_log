@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_logcat){
 //            Logcat_FragmentActivity.start(this);
             Logcat_AppCompatActivity.start(this);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
