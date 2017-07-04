@@ -45,8 +45,8 @@ public class LogcatProcess {
     private Thread mWorkerThread;
     private boolean mShouldQuit;
 
-    LogcatProcess(int logCapcity) {
-        mCachelog = new CacheLog(logCapcity);
+    LogcatProcess(int capacity) {
+        mCachelog = new CacheLog(capacity);
 
         mWorkerThread = new Thread("logcat thread") {
             public void run() {
@@ -139,7 +139,7 @@ public class LogcatProcess {
         }
     }
 
-    public static interface OnLogListener {
+    public interface OnLogListener {
         void onLog(String log);
     }
 
@@ -227,7 +227,6 @@ public class LogcatProcess {
         }
     }
 
-
     public static class FilterSpec implements Parcelable {
         public String mId;
         public String mLabel;
@@ -236,7 +235,7 @@ public class LogcatProcess {
         public String mTag;
         public String mMsg;
         public int mPid = -1;
-        public String mpackage;
+        public String mPackage;
         public String mLevelReg;
 
         public static final Parcelable.Creator<FilterSpec> CREATOR = new Parcelable.Creator<FilterSpec>() {
@@ -261,7 +260,7 @@ public class LogcatProcess {
             mTag = in.readString();
             mMsg = in.readString();
             mPid = in.readInt();
-            mpackage = in.readString();
+            mPackage = in.readString();
             mLevelReg = in.readString();
         }
 
@@ -279,7 +278,7 @@ public class LogcatProcess {
             dest.writeString(mTag);
             dest.writeString(mMsg);
             dest.writeInt(mPid);
-            dest.writeString(mpackage);
+            dest.writeString(mPackage);
             dest.writeString(mLevelReg);
         }
 
@@ -462,7 +461,7 @@ public class LogcatProcess {
 
             public I() {
                 mId = "com.tudou.android.logcat.LEVLE_D";
-                mLabel = "DEBUG";
+                mLabel = "INFO";
                 mLevelReg = "[EDWI]";
             }
         }

@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -46,9 +45,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 /**
  * android logcat application output log viewer.
@@ -90,14 +86,16 @@ public class LogcatFragment extends Fragment
     private FilterSpec[] mFilterSpecs;
     private ArrayAdapter<FilterSpec> mSpecAdapter;
 
-    private EditText mRealTimeFilter;
-    protected FilterSpec mTemplateSpec;
-    protected FilterSpec mRealTimeFilterSpec;
-    protected String mRealFilterText;
-    protected LevelSpec mRealFilterLevel;
-
-    private Spinner mRealTimeFilterLevel;
     private View mFilterBar;
+
+    private EditText mEditText;
+    protected String mFilterText;
+
+    protected FilterSpec mTemplateSpec;
+
+    protected FilterSpec mRealTimeFilterSpec;
+    protected LevelSpec mRealFilterLevel;
+    private Spinner mRealTimeFilterLevel;
 
     private ListView mLogs;
     private FilterLogAdapter mAdapter;
@@ -124,6 +122,7 @@ public class LogcatFragment extends Fragment
         mLogSaveDir = args.getString(EXTRA_LOG_SAVE_DIR);
         if (TextUtils.isEmpty(mLogSaveDir)) {
             mLogSaveDir = Environment.getExternalStorageDirectory().getPath();
+            Log.v(TAG, "use default log dir:" + mLogSaveDir);
         }
 
         mLogLimit = args.getInt(EXTRA_LOG_LIMIT, DEFAULT_LOG_LIMIT);
@@ -212,8 +211,8 @@ public class LogcatFragment extends Fragment
 
             }
         });
-        mRealTimeFilter = ((EditText) view.findViewById(getResources().getIdentifier("real_time_filter", "id", getPackageName())));
-        mRealTimeFilter.addTextChangedListener(new TextWatcher() {
+        mEditText = ((EditText) view.findViewById(getResources().getIdentifier("real_time_filter", "id", getPackageName())));
+        mEditText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -228,13 +227,13 @@ public class LogcatFragment extends Fragment
                 String text = s.toString();
                 mRealTimeFilterSpec.mTag = null;
                 mRealTimeFilterSpec.mMsg = null;
-                mRealFilterText = text;
+                mFilterText = text;
                 if (text.contains(":")){
                     String[] split = text.split(":");
                     if (split.length > 1 && "tag".equalsIgnoreCase(split[0].toLowerCase())) {
                         mRealTimeFilterSpec.mTag = split[1];
                         mRealTimeFilterSpec.mMsg = null;
-                        mRealFilterText = "";
+                        mFilterText = "";
                     }
                 }
                 updateFilter();
@@ -286,8 +285,8 @@ public class LogcatFragment extends Fragment
     protected void updateFilter() {
         Filter filter = null;
 
-        if (mRealFilterText != null && mRealFilterText.length() > 0) {
-            mRealTimeFilterSpec.mMsg = mRealFilterText;
+        if (mFilterText != null && mFilterText.length() > 0) {
+            mRealTimeFilterSpec.mMsg = mFilterText;
         }
         mRealTimeFilterSpec.mLevelReg = mRealFilterLevel.mLevelReg;
         filter = new MergeFilter(new Filter(mTemplateSpec), new Filter(mRealTimeFilterSpec));
@@ -408,7 +407,7 @@ public class LogcatFragment extends Fragment
 
     private void saveFilter() {
         String realtimeFilter = getSharedPreferences("logcat", 0).getString(REAL_TIME_FILTER, "");
-        mRealTimeFilter.setText(realtimeFilter);
+        mEditText.setText(realtimeFilter);
     }
 
     @Override
@@ -427,7 +426,7 @@ public class LogcatFragment extends Fragment
     }
 
     private void restoreFilter() {
-        String realtimeFilter = mRealTimeFilter.getText().toString();
+        String realtimeFilter = mEditText.getText().toString();
         getSharedPreferences("logcat", 0)
                 .edit()
                 .putString(REAL_TIME_FILTER, realtimeFilter)

@@ -35,7 +35,7 @@ public class LogUtil {
     }
 
     public static void init(){
-        File sdcardLogDir = new File("/sdcard/log");
+        File sdcardLogDir = new File(Environment.getExternalStorageDirectory(), "log");
         sdcardLogDir.mkdirs();
 
         File logDir = new File(sdcardLogDir, "log%g");
