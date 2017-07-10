@@ -166,6 +166,8 @@ public class LogcatFragment extends Fragment
                 return true;
             }
         });
+
+        Log.v(TAG, "capacity:" + mLogLimit);
     }
 
     @Override
