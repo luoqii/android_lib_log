@@ -5,6 +5,7 @@ import android.Manifest.permission;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -95,7 +96,7 @@ public class LogcatFragment extends Fragment
 
     protected FilterSpec mRealTimeFilterSpec;
     protected LevelSpec mRealFilterLevel;
-    private Spinner mRealTimeFilterLevel;
+//    private Spinner mRealTimeFilterLevel;
 
     private ListView mLogs;
     private FilterLogAdapter mAdapter;
@@ -126,6 +127,7 @@ public class LogcatFragment extends Fragment
         }
 
         mLogLimit = args.getInt(EXTRA_LOG_LIMIT, DEFAULT_LOG_LIMIT);
+        Log.v(TAG, "log limiit:" + mLogLimit);
 
         mFilterS = args.getParcelable(EXTRA_FILTER_SPEC);
 
@@ -147,6 +149,14 @@ public class LogcatFragment extends Fragment
             mFilterSpecs = specs;
         }
 
+        mH = new Handler(new Callback() {
+
+            @Override
+            public boolean handleMessage(Message msg) {
+                mAdapter.add((String) msg.obj);
+                return true;
+            }
+        });
         if (null == sLogcat) {
             sLogcat = new LogcatProcess(mLogLimit);
         }
@@ -157,17 +167,6 @@ public class LogcatFragment extends Fragment
                 mH.sendMessage(mH.obtainMessage(0, log));
             }
         });
-
-        mH = new Handler(new Callback() {
-
-            @Override
-            public boolean handleMessage(Message msg) {
-                mAdapter.add((String) msg.obj);
-                return true;
-            }
-        });
-
-        Log.v(TAG, "capacity:" + mLogLimit);
     }
 
     @Override
@@ -241,25 +240,25 @@ public class LogcatFragment extends Fragment
                 updateFilter();
             }
         });
-        mRealTimeFilterLevel = ((Spinner) view.findViewById(getResources().getIdentifier("real_time_level", "id", getPackageName())));
-        LevelSpec[] levelSpecs = new LevelSpec[]{new LevelSpec.ALL(), new LevelSpec.E(),
-                new LevelSpec.D(), new LevelSpec.W(), new LevelSpec.I(), new LevelSpec.V()};
-        ArrayAdapter<LevelSpec> adapter = new ArrayAdapter<LevelSpec>(getActivity(), android.R.layout.simple_spinner_item, levelSpecs);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mRealTimeFilterLevel.setAdapter(adapter);
-        mRealTimeFilterLevel.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mRealFilterLevel = (LevelSpec) parent.getAdapter().getItem(position);
-                updateFilter();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        mRealTimeFilterLevel = ((Spinner) view.findViewById(getResources().getIdentifier("real_time_level", "id", getPackageName())));
+//        LevelSpec[] levelSpecs = new LevelSpec[]{new LevelSpec.ALL(), new LevelSpec.E(),
+//                new LevelSpec.D(), new LevelSpec.W(), new LevelSpec.I(), new LevelSpec.V()};
+//        ArrayAdapter<LevelSpec> adapter = new ArrayAdapter<LevelSpec>(getActivity(), android.R.layout.simple_spinner_item, levelSpecs);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        mRealTimeFilterLevel.setAdapter(adapter);
+//        mRealTimeFilterLevel.setOnItemSelectedListener(new OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                mRealFilterLevel = (LevelSpec) parent.getAdapter().getItem(position);
+//                updateFilter();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         mLogs = ((ListView) view.findViewById(getResources().getIdentifier("logs", "id", getPackageName())));
         mAdapter = new FilterLogAdapter(getActivity(), getResources().getIdentifier("android_comm_lib_log_info_item", "layout", getPackageName()), mLogLimit);
@@ -311,6 +310,13 @@ public class LogcatFragment extends Fragment
         }
 
 //        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        showFilter(true);
     }
 
     @Override

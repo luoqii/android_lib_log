@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="template:" />
+            android:text="level:" />
 
         <Spinner
             android:id="@+id/filter"
@@ -41,10 +41,10 @@
             <requestFocus />
         </EditText>
 
-        <Spinner
-            android:id="@+id/real_time_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<Spinner-->
+            <!--android:id="@+id/real_time_level"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
     </LinearLayout>
 
 </LinearLayout>

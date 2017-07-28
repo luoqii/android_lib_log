@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  * @see #enableLog(boolean)
  * @see #setLevel(int)
  * @see java.util.logging.Logger
+ * @see LogUtil
  */
 public final class Log {
     private static final String TAG = Log.class.getSimpleName();

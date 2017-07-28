@@ -31,6 +31,13 @@ public class Logcat_AppCompatActivity extends AppCompatActivity
     	Intent logcat = new Intent(context, Logcat_AppCompatActivity.class);
     	context.startActivity(logcat);
     }
+
+    public static void start(Context context, String logDir, int logLimit){
+        Intent logcat = new Intent(context, Logcat_AppCompatActivity.class);
+        logcat.putExtra(LogcatFragment.EXTRA_LOG_SAVE_DIR, logDir);
+        logcat.putExtra(LogcatFragment.EXTRA_LOG_LIMIT, logLimit);
+        context.startActivity(logcat);
+    }
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +45,14 @@ public class Logcat_AppCompatActivity extends AppCompatActivity
         
         setContentView(getResources().getIdentifier("android_comm_lib_logcat", "layout", getPackageName()));
 
+        if (null == savedInstanceState) {
         Fragment logcat = new LogcatFragment();
-        setArgs(logcat, getIntent());
-        
-        getSupportFragmentManager().beginTransaction()
-                .add(getResources().getIdentifier("logcat_container", "id", getPackageName()), logcat)
-                .commit();
+            setArgs(logcat, getIntent());
 
+            getSupportFragmentManager().beginTransaction()
+                    .add(getResources().getIdentifier("logcat_container", "id", getPackageName()), logcat)
+                    .commit();
+        }
     }
 
 	private void setArgs(Fragment fragment, Intent intent) {

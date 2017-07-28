@@ -6,29 +6,29 @@ android {
 
     defaultConfig {
         applicationId "org.bbs.android.log.sample"
-        minSdkVersion 10
-        targetSdkVersion 23
+        minSdkVersion 7
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
 
-        applicationVariants.all { variant ->
-            println "name: " + variant.name
-            println "baseName: " + variant.baseName
-            println "outputs: " + variant.outputs
-
-            variant.outputs.each { output ->
-                def formattedDate = new Date().format('yyyyMMddhhmm')
-                output.outputFile =
-                        new File(output.outputFile.parent,
-                                output.outputFile.name.replaceAll(".apk", "_V" + versionName.replaceAll("\\.", "_") + "_D" + formattedDate + ".apk"))
-                println "output:" + output
-
-                println "outputFile:" + output.outputFile
-
-            }
-        }
+//        applicationVariants.all { variant ->
+//            println "name: " + variant.name
+//            println "baseName: " + variant.baseName
+//            println "outputs: " + variant.outputs
+//
+//            variant.outputs.each { output ->
+//                def formattedDate = new Date().format('yyyyMMddhhmm')
+//                output.outputFile =
+//                        new File(output.outputFile.parent,
+//                                output.outputFile.name.replaceAll(".apk", "_V" + versionName.replaceAll("\\.", "_") + "_D" + formattedDate + ".apk"))
+//                println "output:" + output
+//
+//                println "outputFile:" + output.outputFile
+//
+//            }
+//        }
     }
     buildTypes {
         release {
@@ -46,9 +46,9 @@ dependencies {
     compile 'com.android.support:support-v4:23.3.0'
 
     //keep this comment-out in commit code.
-//    compile project(':log')
+    compile project(':log')
     // sync with Readme.md
-    compile 'org.bbs.android:log:0.6_rc5'
+//    compile 'org.bbs.android:log:0.6_rc5'
 
     androidTestCompile 'junit:junit:4.12'
 

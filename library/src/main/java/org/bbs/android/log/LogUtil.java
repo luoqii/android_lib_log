@@ -8,9 +8,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by qiiluo on 2/8/17.
- */
 
 public class LogUtil {
     /**
@@ -26,7 +23,7 @@ public class LogUtil {
         try {
             h = new FileHandler(pattern, limit, count);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("can not create FileHandler.",e);
         }
         h.setFormatter(new Log.SimpleFormatter());
         l.addHandler(h);

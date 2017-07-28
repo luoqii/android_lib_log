@@ -7,15 +7,18 @@
     <LinearLayout
         android:layout_weight="3"
         android:layout_width="0dp"
-        android:layout_height="wrap_content" >
+        android:gravity="center"
+        android:layout_height="match_parent" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="template:" />
+            android:layout_gravity="center"
+            android:text="level:" />
 
         <Spinner
             android:id="@+id/filter"
+            android:layout_gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -23,15 +26,17 @@
     <LinearLayout
         android:layout_weight="7"
         android:layout_width="0dp"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent" >
 
         <TextView
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="filter:" />
 
         <EditText
             android:id="@+id/real_time_filter"
+            android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -40,10 +45,10 @@
 
             <requestFocus />
         </EditText>
-        <Spinner
-            android:id="@+id/real_time_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<Spinner-->
+            <!--android:id="@+id/real_time_level"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
     </LinearLayout>
 
 </LinearLayout>

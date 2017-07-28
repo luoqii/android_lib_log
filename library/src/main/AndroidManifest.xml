@@ -11,7 +11,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="org.bbs.android.log.Logcat_AppCompatActivity">
+        <activity android:name="org.bbs.android.log.Logcat_AppCompatActivity"
+            android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
